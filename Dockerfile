@@ -16,18 +16,6 @@ ENV HOME="/config" \
 XDG_CONFIG_HOME="/config" \
 XDG_DATA_HOME="/config"
 
-ARG ngrokid
-ARG Password
-ENV Password=${Password}
-ENV ngrokid=${ngrokid}
-RUN apt install ssh wget unzip -y > /dev/null 2>&1
-RUN wget -O ngrok.zip https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.zip > /dev/null 2>&1
-RUN mkdir /run/sshd
-RUN echo '/usr/sbin/sshd -D'
-RUN echo 'PermitRootLogin yes' >>  /etc/ssh/sshd_config 
-RUN echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
-RUN echo root:${Password}|chpasswd
-
 # install runtime packages and qbitorrent-cli
 RUN \
   echo "**** install build packages ****" && \
